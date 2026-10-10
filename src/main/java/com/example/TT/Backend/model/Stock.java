@@ -1,0 +1,70 @@
+package com.example.TT.Backend.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "stocks", uniqueConstraints = @UniqueConstraint(columnNames = "symbol"))
+public class Stock {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true, length = 20)
+    private String symbol;
+
+    @Column(nullable = false)
+    private String companyName;
+
+    @Column(nullable = false, precision = 19, scale = 2)
+    private BigDecimal currentPrice;
+
+    public Stock() {
+    }
+
+    public Stock(String symbol, String companyName, BigDecimal currentPrice) {
+        this.symbol = symbol;
+        this.companyName = companyName;
+        this.currentPrice = currentPrice;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public BigDecimal getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(BigDecimal currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+}
