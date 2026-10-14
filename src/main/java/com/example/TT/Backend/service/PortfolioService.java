@@ -8,6 +8,7 @@ import com.example.TT.Backend.repository.HoldingRepository;
 import com.example.TT.Backend.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,6 +25,7 @@ public class PortfolioService {
         this.userRepository = userRepository;
     }
 
+    @Transactional(readOnly = true)
     public PortfolioResponse getPortfolio() {
         User user = getCurrentUser();
         List<Holding> holdings = holdingRepository.findByUser(user);

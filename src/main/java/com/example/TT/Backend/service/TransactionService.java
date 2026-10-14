@@ -7,6 +7,7 @@ import com.example.TT.Backend.repository.TransactionRepository;
 import com.example.TT.Backend.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class TransactionService {
         this.userRepository = userRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<TransactionResponse> getTransactions() {
         User user = getCurrentUser();
         return transactionRepository.findByUserOrderByCreatedAtDesc(user).stream()
